@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Предпросмотр и правки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <!-- Loading overlay -->
+  <div id="loading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Загрузка результата…</p>
+  </div>
+
+  <!-- Error state -->
+  <div id="error" class="error-container" style="display:none">
+    <div class="error-icon">⚠️</div>
+    <h2>Ошибка</h2>
+    <p id="error-message">Не удалось загрузить результат</p>
+    <button class="btn btn-primary" onclick="location.reload()">Попробовать снова</button>
+  </div>
+
+  <!-- Main app -->
+  <div id="app" style="display:none">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <span class="header-icon">📝</span>
+        <div>
+          <h1>Предпросмотр</h1>
+          <span id="mode-badge" class="mode-badge"></span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span id="char-count" class="char-count"></span>
+      </div>
+    </header>
+
+    <!-- Editor -->
+    <div class="editor-container">
+      <textarea id="editor" placeholder="Результат обработки…" spellcheck="true"></textarea>
+    </div>
+
+    <!-- Action bar -->
+    <div class="action-bar">
+      <div class="action-row">
+        <button id="btn-copy" class="btn btn-secondary" onclick="copyText()">
+          <span class="btn-icon">📋</span>
+          Скопировать
+        </button>
+        <button id="btn-docx" class="btn btn-secondary" onclick="downloadDocx()">
+          <span class="btn-icon">📄</span>
+          Скачать DOCX
+        </button>
+      </div>
+      <div class="action-row">
+        <button id="btn-shorten" class="btn btn-accent" onclick="runAction('shorten')">
+          <span class="btn-icon">✂️</span>
+          Короче
+        </button>
+        <button id="btn-lengthen" class="btn btn-accent" onclick="runAction('lengthen')">
+          <span class="btn-icon">📖</span>
+          Длиннее
+        </button>
+      </div>
+    </div>
+
+    <!-- Status toast -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
